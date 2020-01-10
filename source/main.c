@@ -1,4 +1,7 @@
-/*	Author: lmuri005
+/*le (1) {
+ *
+ *     }
+ *     Author: lmuri005
  *  Partner(s) Name: 
  *	Lab Section:
  *	Assignment: Lab #  Exercise #
@@ -14,9 +17,13 @@
 
 int main(void) {
     /* Insert DDR and PORT initializations */
-
+	DDRA=0x00; PORTA=0xFF;
+	DDRB=0xFF; PORTB=0x00;	
     /* Insert your solution below */
+	unsigned char temp_input=0x00;
     while (1) {
+	temp_input=PINA;
+	PORTB=temp_input;
 
     }
     return 1;
