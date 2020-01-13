@@ -15,23 +15,34 @@
 int main(void) {
     /* Insert DDR and PORT initializations */
 DDRA=0x00;
-DDRB=0xFF;
+DDRC=0xFF;
 PORTA=0xFF;
-PORTB=0x00;
-	unsigned char PenA0=0x00;
-        unsigned char PenA1=PINA&0x02;
+PORTC=0x00;
+	unsigned char PenA0;
+        unsigned char PenA1;
+	unsigned char PenA2;
+	unsigned char PenA3;
+	 unsigned char counter;
     /* Insert your solution below */
     while (1) {
 	PenA0=PINA&0x01;
 	PenA1=PINA&0x02;
-	
-	if((PenA1==0x0)&&(PenA0==0x01)){
-	PORTB=0x01;	
+	PenA2=PINA&0x04;
+	PenA3=PINA&0x08;
+		counter=0;	
+	if(PenA0==0x00){
+	counter++;
 	}
-
-    else {
-PORTB=0x00;
+	if(PenA1==0x00){
+	counter++;
 }
+	if(PenA2==0x00){
+	counter++;
+}
+	if(PenA3==0x00){
+	counter++;
+}
+    PORTC=counter;
 }
     return 1;
 }
