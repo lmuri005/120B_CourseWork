@@ -23,12 +23,14 @@ PORTC=0x00;
 	unsigned char PenA2;
 	unsigned char PenA3;
 	 unsigned char counter;
+	unsigned char PenA7;
     /* Insert your solution below */
     while (1) {
 	PenA0=PINA&0x01;
 	PenA1=PINA&0x02;
 	PenA2=PINA&0x04;
 	PenA3=PINA&0x08;
+	PenA7=PINA&0x80;
 		counter=0;	
 	if(PenA0==0x00){
 	counter++;
@@ -42,8 +44,13 @@ PORTC=0x00;
 if(PenA3==0x00){
 	counter++;
 }
+if(PenA7==0x01)
+{
+counter++;
+}
     PORTC=counter;
 }
+
 //PORTC=counter;
     return 1;
 }

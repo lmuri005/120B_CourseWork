@@ -58,7 +58,7 @@ echo Running all tests..."\n\n
 
 
 test “PINA[1:0]: 00, PORTB0: 0”
-setPINA 0x00
+setPINA 0x80
 continue 2
 expectPORTC 4
 checkResult
@@ -88,7 +88,11 @@ continue 2
 expectPORTC 0
 checkResult
 
-
+test “PINA[1:0]: 11, PORTB0: 0”
+setPINA 0x06
+continue 2
+expectPORTC 2
+checkResult
 
 # Add tests below
 
