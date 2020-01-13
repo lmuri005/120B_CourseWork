@@ -16,19 +16,22 @@ int main(void) {
     /* Insert DDR and PORT initializations */
 DDRA=0x00;
 DDRB=0xFF;
-PINA=0xFF;
+PORTA=0xFF;
 PORTB=0x00;
-	unsigned char PenA0=(PINA & 0xFE);
-        unsigned char PenA1=(PINA & 0xFD);
+	unsigned char PenA0=0x00;
+        unsigned char PenA1=PINA&0x02;
     /* Insert your solution below */
     while (1) {
-	if((PenA1==0x00&&PenA0==0x00)){
-	PORTB=0x00;	
+	PenA0=PINA&0x01;
+	PenA1=PINA&0x02;
+	
+	if((PenA1==0x0)&&(PenA0==0x01)){
+	PORTB=0x01;	
 	}
-else if((PenA1==0x00&&PenA0==0x01)){
-        PORTB=0X01;
-    }
 
-    }
+    else {
+PORTB=0x00;
+}
+}
     return 1;
 }
