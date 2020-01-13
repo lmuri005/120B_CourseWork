@@ -39,7 +39,7 @@ PORTC=0x00;
 	if(PenA2==0x00){
 	counter++;
 }
-	if(PenA3==0x00){
+if(PenA3==0x00){
 	counter++;
 }
     PORTC=counter;

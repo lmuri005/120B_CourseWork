@@ -3,5 +3,5 @@ Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
 
-“PINA[1:0]:...“PINA[1:0]:...“PINA[1:0]:...“PINA[1:0]:...======================================================
+“PINA[1:0]:...“PINA[1:0]:...“PINA[1:0]:...“PINA[1:0]:...“PINA[1:0]:...======================================================
 Quitting: Remote doesn't know how to detach
