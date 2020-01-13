@@ -42,6 +42,9 @@ PORTC=0x00;
 	if(PenA3==0x00){
 	counter++;
 }
+	if(counter==0){
+	count=counter|0x80;
+}
     PORTC=counter;
 }
     return 1;
