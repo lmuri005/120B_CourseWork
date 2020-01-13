@@ -38,6 +38,11 @@ expectPORTB 0
 # Check pass/fail
 checkResult
 
+test "PINA: 0XFE => PORTB: 0"
+setPINA 0xFE
+continue 2
+expectPORTB 0
+checkResult 
 
 test "PINA: 0xFE => PORTB: 1"
 setPINA 0xFE
