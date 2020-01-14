@@ -162,7 +162,7 @@ define expectPORTB
     end
 end
 define expectPORTC
-    set $actual = {char}0x800028
+    set $actual = {unsigned char}0x800028
     if $actual != $arg0
         set $passed = 0
         echo \n\tExpected $arg0 \n\t

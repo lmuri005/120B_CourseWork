@@ -44,9 +44,9 @@ PORTC=0x00;
 if(PenA3==0x00){
 	counter++;
 }
-if(PenA7==0x01)
+if(counter==0)
 {
-counter++;
+counter=PenA7|0x80;
 }
     PORTC=counter;
 }

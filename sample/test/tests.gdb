@@ -57,13 +57,13 @@ echo Running all tests..."\n\n
 #checkResul
 
 
-test “PINA[1:0]: 00, PORTB0: 0”
+test "PINA[1:0]: 00, PORTB0: 0"
 setPINA 0x80
 continue 2
 expectPORTC 4
 checkResult
 
-test “PINA[1:0]: 01, PORTB0: 1”
+test “PINA[1:0]: 01, PORTB0: 1"
 setPINA 0x02
 continue 2
 expectPORTC 3
@@ -85,7 +85,7 @@ checkResult
 test “PINA[1:0]: 11, PORTB0: 0”
 setPINA 0x0F
 continue 2
-expectPORTC 0
+expectPORTC 0x80
 checkResult
 
 test “PINA[1:0]: 11, PORTB0: 0”
