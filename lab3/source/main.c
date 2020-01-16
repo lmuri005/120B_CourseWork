@@ -21,11 +21,12 @@ int main(void) {
 	//PORTB=0xFF;
 	PORTC=0x00;
 	unsigned char PenTmpA;
+	unsigned char PTMPA;
     /* Insert your solution below */
 
     while (1) {
 	PenTmpA= PINA & 0x0F;
-
+	PTMPA=PINA&0x70;	// Mask pins to Hex 70 for pinA 4-7
 	if(PenTmpA==0x00){
 	PORTC=0x00;
 
@@ -47,8 +48,11 @@ int main(void) {
 	}else if((PenTmpA>= 0x0D) && (PenTmpA<=0x0F)){
 	PORTC=0x1F;
 }
-
+	if(PTMPA==0x30){// IF PTMPA == port 4 & port5
+	PORTC=PORTC|0x80;// Set pin PC7 to 1
+}
 	
+
 }
  
  
