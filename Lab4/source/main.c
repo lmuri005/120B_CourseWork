@@ -10,27 +10,46 @@
 #include <avr/io.h>
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
-#endif
-#define A0 (PINA & 0x01)
-enum states{start,not_pressed,pressed,release_1,release_2}state;
+#endif 
+
+enum states{start,not_pressed,pressed_1,release_1,pressed_2}state;
 
 void lightonfunc(){
+unsigned char tmpA0;
 
+tmpA0=PINA&0x01;
 
 switch (state){
 	case start:
 	state=not_pressed;
 	break;
 
-	case release_1:
-	if(A0==0x01){
+	case not_pressed:
+	if(tmpA0==0x01){
 	state=pressed;
-	}else {
+	}else if(tmpA0==0x00)
 	state=release_1;
 	}
 	break;
+	
+	case pressed_1:
+	if(tmpA0==0x01){
+	state=pressed;
+	}else if(tmpA0==0x01){
+	state= release_2;
+	}
+	break;
 
+	case release_1:
+	if(tmpA0==0x01){
+	state= release_2;
+	}else if (tmpA0==0x00){
+	state=release_1;
+	}
+	break;
+	
 	default:
+	state=start;
 	break; 
 }
 switch(state){
@@ -40,12 +59,16 @@ switch(state){
 	PORTB=0x01;
 	break;
 
-	case pressed:
+	case pressed_1:
 	PORTB=0x02;
-	break; 
-	case release_1:
 	break;
+ 
+	case release_1:
+	PORTB=0x02;
+	break;
+
 	case release_2:
+	PORTB=0x01;
 	break; 	
 	default:
 	break;
