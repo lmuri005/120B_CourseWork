@@ -11,67 +11,136 @@
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
+enum states{start,initial,reset,increment, decrement, wait_1,wait_2} state;
+
+void tictoc(){
+	unsigned char tmpA;
+	
+	tmpA=~PINA&0x03;
+	
+	switch (state){
+		case start:
+		state=initial;
+		break;
+		
+		case initial:
+		if((tmpA&0x03)==0x03){
+			state=reset;
+			}else if ((tmpA&0x03)==0x02){
+			state=decrement;
+			}else if((tmpA&0x03)==0x01){
+			state=increment;
+		}
+		break;
+		
+		case reset:
+		if((tmpA&0x03)==0x03){
+			state=reset;
+			}else if((tmpA&0x03)==0x02){
+			state=decrement;
+			}else if((tmpA&0x03)==0x01){
+			state=increment;
+		}else
+		state=initial;
+		break;
+		
+		case increment:
+		state=wait_1;
+		break;
+		
+		case decrement:
+		state=wait_2;
+		break;
+		
+		case wait_1:
+		if((tmpA&0x03)==0x01){
+			state=increment;
+			}else if((tmpA&0x03)==0x02){
+			state=decrement;
+			}else if((tmpA&0x03)==0x03){
+			state=reset;
+			}else{
+			state=wait_1;
+		}
+		break;
+		
+		case wait_2:
+		if((tmpA&0x03)==0x02){
+			state=decrement;
+			}else if((tmpA&0x03)==0x01){
+			state=increment;
+			}else if((tmpA&0x03)==0x03){
+			state=reset;
+			}else{
+			state=wait_2;
+		}
+		break;
+		
+		default:
+		state=initial;
+		break;
+	}
+	
+	switch(state){
+		case start:
+		break;
+		
+		case initial:
+		PORTC=0x00;
+		break;
+		
+		case increment:
+		if(PORTC<0x09){
+			PORTC++;
+			}else{
+			PORTC=PORTC;
+		}
+		break;
+		
+		case decrement:
+		if(PORTC>0x00){
+			PORTC--;
+			}else{
+			PORTC=PORTC;
+		}
+		break;
+		
+		case wait_1:
+		break;
+		
+		case wait_2:
+		break;
+		
+		case reset:
+		PORTC=0x00;
+		break;
+		
+		default:
+		break;
+	}
+}
 int main(void) {
 	/* Insert DDR and PORT initializations */
 	
-DDRB=0xFF;
-DDRA=0x00;
 
-PORTB=0x00;
-PORTA=0xFF;
+	DDRA=0x00;
+	DDRC=0xFF;
 
-
-unsigned char PenTmpA;
-
-
-while (1)
-{
-	
-	PenTmpA= ~PINA & 0x0F;
-	
-
-	if(PenTmpA==0x00){ // LED stay on for some reason
-
-		PORTB=0x00;
-
-
-		}else if((PenTmpA==0x01)||(PenTmpA==0x02)){
-
-		PORTB=0x60;
-
-
-		}else if((PenTmpA==0x03)||(PenTmpA==0x04)){
-
-		PORTB=0x70;
+	PORTC=0x00;
+	PORTA=0xFF;
 
 
 
-		}else if((PenTmpA>=0x05)&&(PenTmpA<=0x06)){
+	state=start;
 
-		PORTB=0x38;
-
-
-		}else if((PenTmpA>=0x07)&&(PenTmpA<=0x09)){
-
-		PORTB=0x3c;
-
+	while (1)
+	{
+		tictoc();
 		
-
-		}else if((PenTmpA>=0x0A)&&(PenTmpA<=0x0C)){
-
-		PORTB=0x3E;
-
-
-
-		}else if((PenTmpA>= 0x0D) && (PenTmpA<=0x0F)){
-
-		PORTB=0x3F;
 		
 	}
-	
-	
+
+	return 0;
 }
 
-return 0;
-}
 
